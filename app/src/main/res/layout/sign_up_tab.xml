@@ -18,19 +18,71 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/txtName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="Hello world 3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="28dp"
+                android:text="@string/SignUpUsername"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtName3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/SignUpPassword"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText3" />
+
+            <TextView
+                android:id="@+id/txtName2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/SignUpEmail"
+                app:layout_constraintStart_toStartOf="@+id/editText"
+                app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/txtName"
+                app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+            <EditText
+                android:id="@+id/editText3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtName2" />
+
+            <EditText
+                android:id="@+id/editText5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtName3" />
+
+            <Button
+                android:id="@+id/btnSignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="@string/btnSignUp"
+                app:layout_constraintEnd_toEndOf="@+id/editText2"
+                app:layout_constraintStart_toStartOf="@+id/editText2"
+                app:layout_constraintTop_toBottomOf="@+id/editText5" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
