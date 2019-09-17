@@ -6,9 +6,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +38,15 @@ public class TodayTab extends Fragment {
 
         CustomAdapterToday cusadp = new CustomAdapterToday(getActivity(), items);
         listViewToday.setAdapter(cusadp);
+
+        listViewToday.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            // argument position gives the index of item which is clicked
+            public void onItemClick(AdapterView<?> arg0, View v,int position, long arg3)
+            {
+                Toast.makeText(getActivity(), "Movie Selected : "+position,   Toast.LENGTH_LONG).show();
+            }
+        });
         return view;
     }
 }

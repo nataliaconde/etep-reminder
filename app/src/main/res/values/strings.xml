@@ -5,6 +5,15 @@
   <string name="tomorrow">Amanhã</string>
   <string name="nextDays">Próximos dias</string>
 
+  <string name="LoginUsername">Usuário</string>
+  <string name="LoginPassword">Senha</string>
+  <string name="btnLogin">Acessar</string>
+
+  <string name="SignUpUsername">Usuário</string>
+  <string name="SignUpEmail">E-mail</string>
+  <string name="SignUpPassword">Senha</string>
+  <string name="btnSignUp">Criar</string>
+
   <!-- TODO: Remove or change this placeholder text -->
   <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
