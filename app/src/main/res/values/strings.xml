@@ -15,6 +15,8 @@
   <string name="LoginUsername">Usuário</string>
   <string name="LoginPassword">Senha</string>
   <string name="btnLogin">Acessar</string>
+  <string name="errorLoginSignUpEmpty">Preencha corretamente os campos!</string>
+  <string name="errorLoginDontMatch">Usuário/Senha não correspondem!</string>
 
   <string name="SignUpUsername">Usuário</string>
   <string name="SignUpEmail">E-mail</string>

@@ -16,28 +16,51 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class TodayTab extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance){
         View view = inflater.inflate(R.layout.today_tasks_tab, container, false);
-        ListView listViewToday = (ListView) view.findViewById(R.id.listViewToday);
+        final ListView listViewToday = (ListView) view.findViewById(R.id.listViewToday);
+        final ArrayList<ItemReminder> items = new ArrayList<ItemReminder>();
 
-        ArrayList<ItemReminder> items = new ArrayList<ItemReminder>();
+        Log.d("DEBUG","DEBUG" + String.valueOf(ParseUser.getCurrentUser().getObjectId()));
 
-        for(int i = 0; i < 2; i++){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Reminder");
 
-            ItemReminder itemReminder = new ItemReminder();
-            itemReminder.setTitle("Carro "+ ("a"  + 1));
-            itemReminder.setDescription("Marca "+ (i + 1));
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> List, ParseException e) {
 
-            items.add(itemReminder);
-        }
+                if (e == null) {
+                    for(ParseObject object : List){
 
-        CustomAdapterToday cusadp = new CustomAdapterToday(getActivity(), items);
-        listViewToday.setAdapter(cusadp);
+                        ItemReminder itemReminder = new ItemReminder();
+                        itemReminder.setTitle(object.getString("title"));
+
+                        Log.d("DEBUG","DEBUG" + object.getString("title"));
+
+                        itemReminder.setDescription(object.getString("description"));
+                        itemReminder.setDate(object.getString("date"));
+                        itemReminder.setPriority(object.getString("priority"));
+
+                        items.add(itemReminder);
+                    }
+                    CustomAdapterToday cusadp = new CustomAdapterToday(getActivity(), items);
+                    listViewToday.setAdapter(cusadp);
+                } else {
+                    Log.d("score", "Error: " + e.getMessage());
+                }
+            }
+        });
 
         listViewToday.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
