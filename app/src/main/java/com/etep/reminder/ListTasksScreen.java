@@ -1,8 +1,10 @@
 package com.etep.reminder;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.tabs.TabLayout;
+import com.parse.Parse;
+import com.parse.ParseUser;
 
 public class ListTasksScreen extends AppCompatActivity {
 
@@ -53,7 +57,13 @@ public class ListTasksScreen extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId()==R.id.createNewTask){
-            goToActivity(ListTasksScreen.class);
+            goToActivity(AddTasks.class);
+        }
+        if (item.getItemId()==R.id.logoutUser){
+            alertDisplayer(
+                    getString(R.string.logoutTitle),
+                    getString(R.string.logoutMessage)
+            );
         }
         return super.onOptionsItemSelected(item);
 
@@ -62,6 +72,34 @@ public class ListTasksScreen extends AppCompatActivity {
     public void goToActivity(Class<?> view) {
         Intent i = new Intent(ListTasksScreen.this, view);
         startActivity(i);
+    }
+
+    private void alertDisplayer(String title,String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(getString(R.string.alertDialogPositive), new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ParseUser.logOut();
+                        goToActivity(LogInScreen.class);
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton(getString(R.string.alertDialogNegative), new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .setNeutralButton(getString(R.string.alertDialogNeutral), new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog ok = builder.create();
+        ok.show();
     }
 
 }
