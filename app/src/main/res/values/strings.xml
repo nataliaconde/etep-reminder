@@ -1,35 +1,35 @@
 <resources>
-  <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
 
-  <!-- Change the following strings as required -->
-  <string name="back4app_app_id">rfJYNftlm2x4s4ihdMUTSM5RGni8jTAuHQHyOlEW</string>
-  <string name="back4app_client_key">mV66LqORNRwrr8FdtMBJx63pVFx81WXywAYJO1Jd</string>
-  <string name="gcmSenderId">537003505746</string>
+    <!-- Change the following strings as required -->
+    <string name="back4app_app_id">rfJYNftlm2x4s4ihdMUTSM5RGni8jTAuHQHyOlEW</string>
+    <string name="back4app_client_key">mV66LqORNRwrr8FdtMBJx63pVFx81WXywAYJO1Jd</string>
+    <string name="gcmSenderId">537003505746</string>
 
-  <string name="app_name">Reminder</string>
+    <string name="app_name">Reminder</string>
 
-  <string name="today">Hoje</string>
-  <string name="tomorrow">Amanhã</string>
-  <string name="nextDays">Próximos dias</string>
+    <string name="today">Hoje</string>
+    <string name="tomorrow">Amanhã</string>
+    <string name="nextDays">Próximos dias</string>
 
-  <string name="LoginUsername">Usuário</string>
-  <string name="LoginPassword">Senha</string>
-  <string name="btnLogin">Acessar</string>
-  <string name="errorLoginSignUpEmpty">Preencha corretamente os campos!</string>
-  <string name="errorLoginDontMatch">Usuário/Senha não correspondem!</string>
+    <string name="LoginUsername">Usuário</string>
+    <string name="LoginPassword">Senha</string>
+    <string name="btnLogin">Acessar</string>
+    <string name="errorLoginSignUpEmpty">Preencha corretamente os campos!</string>
+    <string name="errorLoginDontMatch">Usuário/Senha não correspondem!</string>
 
-  <string name="logoutTitle">Você tem certeza?</string>
-  <string name="logoutMessage">Você será desconectado dessa conta.</string>
+    <string name="logoutTitle">Você tem certeza?</string>
+    <string name="logoutMessage">Você será desconectado dessa conta.</string>
 
-  <string name="alertDialogPositive">Sim</string>
-  <string name="alertDialogNegative">Não</string>
-  <string name="alertDialogNeutral">Cancelar</string>
+    <string name="alertDialogPositive">Sim</string>
+    <string name="alertDialogNegative">Não</string>
+    <string name="alertDialogNeutral">Cancelar</string>
 
-  <string name="SignUpUsername">Usuário</string>
-  <string name="SignUpEmail">E-mail</string>
-  <string name="SignUpPassword">Senha</string>
-  <string name="btnSignUp">Criar</string>
+    <string name="SignUpUsername">Usuário</string>
+    <string name="SignUpEmail">E-mail</string>
+    <string name="SignUpPassword">Senha</string>
+    <string name="btnSignUp">Criar</string>
 
-  <!-- TODO: Remove or change this placeholder text -->
-  <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

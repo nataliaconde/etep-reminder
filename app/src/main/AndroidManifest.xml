@@ -18,7 +18,8 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SignUpEmailConfirmation"></activity>
+        <activity android:name=".ResetPasswordScreen"></activity>
+        <activity android:name=".SignUpEmailConfirmation" />
 
         <meta-data
             android:name="com.parse.SERVER_URL"
@@ -42,7 +43,7 @@
         </activity>
         <activity
             android:name=".ListTasksScreen"
-            android:label=""></activity>
+            android:label="" />
         <activity android:name=".MainActivity" />
 
         <service
