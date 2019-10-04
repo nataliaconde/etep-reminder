@@ -18,22 +18,17 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ResetPasswordScreen"></activity>
-        <activity android:name=".SignUpEmailConfirmation" />
-
-        <meta-data
-            android:name="com.parse.SERVER_URL"
-            android:value="@string/back4app_server_url" />
-        <meta-data
-            android:name="com.parse.APPLICATION_ID"
-            android:value="@string/back4app_app_id" />
-        <meta-data
-            android:name="com.parse.CLIENT_KEY"
-            android:value="@string/back4app_client_key" />
-
-        <activity android:name=".AddTasks" />
         <activity
-            android:name=".LogInScreen"
+            android:name=".ResetPasswordScreen"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".SendEmailConfirmation"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".AddTasks" />
+        <activity android:name=".LogInScreen"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".WelcomeScreen"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,6 +40,16 @@
             android:name=".ListTasksScreen"
             android:label="" />
         <activity android:name=".MainActivity" />
+
+        <meta-data
+            android:name="com.parse.SERVER_URL"
+            android:value="@string/back4app_server_url" />
+        <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="@string/back4app_app_id" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="@string/back4app_client_key" />
 
         <service
             android:name="com.parse.fcm.ParseFirebaseInstanceIdService"

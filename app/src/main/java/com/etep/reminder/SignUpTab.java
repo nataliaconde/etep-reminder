@@ -44,7 +44,7 @@ public class SignUpTab extends Fragment {
                         @Override
                         public void done(ParseException e) {
                             if (e == null) {
-                                goToActivity(SignUpEmailConfirmation.class);
+                                goToActivity(SendEmailConfirmation.class);
                             } else {
                                 ParseUser.logOut();
                                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();

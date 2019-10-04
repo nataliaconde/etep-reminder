@@ -30,6 +30,15 @@
     <string name="SignUpPassword">Senha</string>
     <string name="btnSignUp">Criar</string>
 
+    <string name="forgotPassword">Esqueceu a senha?</string>
+    <string name="instructionsForgotPassword">Insira seu e-mail no campo abaixo para que as instruções sejam enviadas.</string>
+    <string name="sendForgotPassword">Enviar</string>
+    <string name="ForgotPasswordTitle">Você está próximo de recuperar sua senha</string>
+    <string name="ForgotPasswordEmailVerificationButton">Voltar</string>
+    <string name="ForgotPasswordEmailVerificationSent">As instruções foram enviadas para sua caixa de entrada!</string>
+    <string name="ForgotPasswordEmailVerificationNotSent">E-mail não encontrado!</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

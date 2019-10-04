@@ -30,6 +30,8 @@ public class LoginTab extends Fragment {
 
         Button btnLogin = (Button) view.findViewById(R.id.btnLogin);
         final Button signUp = (Button) view.findViewById(R.id.btnSignUp);
+        Button btnResetPassword = (Button) view.findViewById(R.id.idResetPassword);
+
 
         final EditText etLogin = (EditText) view.findViewById(R.id.etUsername);
         final EditText etPassword = (EditText) view.findViewById(R.id.etPassword);
@@ -51,6 +53,13 @@ public class LoginTab extends Fragment {
                         }
                     });
                 }
+            }
+        });
+
+        btnResetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToActivity(ResetPasswordScreen.class);
             }
         });
 

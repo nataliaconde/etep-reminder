@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -48,7 +47,9 @@
             <EditText
                 android:id="@+id/etUsername"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/color_edittext"
+                android:textCursorDrawable="@drawable/color_cursor"
                 android:ems="10"
                 android:inputType="textEmailAddress"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +59,9 @@
             <EditText
                 android:id="@+id/etEmail"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/color_edittext"
+                android:textCursorDrawable="@drawable/color_cursor"
                 android:ems="10"
                 android:inputType="textEmailAddress"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +70,9 @@
             <EditText
                 android:id="@+id/etPassword"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/color_edittext"
+                android:textCursorDrawable="@drawable/color_cursor"
                 android:ems="10"
                 android:inputType="textPassword"
                 app:layout_constraintStart_toStartOf="parent"
@@ -78,6 +83,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
+                android:background="@color/common_google_signin_btn_text_dark_focused"
+                android:textColor="@color/colorPrimaryDark"
+                android:padding="10dp"
                 android:text="@string/btnSignUp"
                 app:layout_constraintEnd_toEndOf="@+id/etPassword"
                 app:layout_constraintStart_toStartOf="@+id/etPassword"
