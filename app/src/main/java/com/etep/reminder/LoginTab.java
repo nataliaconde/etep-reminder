@@ -1,12 +1,15 @@
 package com.etep.reminder;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,7 +35,6 @@ public class LoginTab extends Fragment {
         final Button signUp = (Button) view.findViewById(R.id.btnSignUp);
         Button btnResetPassword = (Button) view.findViewById(R.id.idResetPassword);
 
-
         final EditText etLogin = (EditText) view.findViewById(R.id.etUsername);
         final EditText etPassword = (EditText) view.findViewById(R.id.etPassword);
 
@@ -45,7 +47,14 @@ public class LoginTab extends Fragment {
                     ParseUser.logInInBackground(String.valueOf(etLogin.getText()), String.valueOf(etPassword.getText()), new LogInCallback() {
                         @Override
                         public void done(ParseUser parseUser, ParseException e) {
-                            if (parseUser != null) goToActivity(ListTasksScreen.class);
+                            if (parseUser != null) {
+                                boolean isEmailVefified = parseUser.getBoolean("emailVerified");
+                                if (isEmailVefified) {
+                                    goToActivity(ListTasksScreen.class);
+                                } else {
+                                    Toast.makeText(getActivity(), getString(R.string.errorLoginEmailVerified), Toast.LENGTH_SHORT).show();
+                                }
+                            }
                             else {
                                 ParseUser.logOut();
                                 Toast.makeText(getActivity(), getString(R.string.errorLoginDontMatch), Toast.LENGTH_SHORT).show();

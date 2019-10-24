@@ -30,7 +30,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="8dp"
                 android:text="Título do Evento"
-                app:layout_constraintBottom_toTopOf="@+id/editText7"
+                app:layout_constraintBottom_toTopOf="@+id/edtName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
@@ -43,7 +43,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Descrição"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText7" />
+                app:layout_constraintTop_toBottomOf="@+id/edtName" />
 
             <TextView
                 android:id="@+id/textView16"
@@ -53,10 +53,10 @@
                 android:layout_marginTop="20dp"
                 android:text="Prioridade"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText6" />
+                app:layout_constraintTop_toBottomOf="@+id/edtDescription" />
 
             <EditText
-                android:id="@+id/editText6"
+                android:id="@+id/edtDescription"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
                 android:ems="10"
@@ -65,7 +65,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
             <EditText
-                android:id="@+id/editText7"
+                android:id="@+id/edtName"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="21dp"
@@ -102,16 +102,47 @@
                     android:background="@android:color/background_light"
                     android:src="@drawable/ic_date_range_black_50dp" />
 
+                <ImageButton
+                    android:id="@+id/btnTimePicker"
+                    android:layout_width="85dp"
+                    android:layout_height="fill_parent"
+                    android:background="@android:color/background_light"
+                    app:srcCompat="@drawable/ic_access_time_black_50dp" />
+
             </RelativeLayout>
 
             <TextView
                 android:id="@+id/txtDatePicker"
                 android:layout_width="87dp"
                 android:layout_height="17dp"
-                android:text="TextView"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="@+id/relativeLayout2"
                 app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
+
+            <TextView
+                android:id="@+id/txtTimePicker"
+                android:layout_width="87dp"
+                android:layout_height="17dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@+id/relativeLayout2"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/txtDatePicker"
+                app:layout_constraintTop_toBottomOf="@+id/txtDatePicker" />
+
+            <TextView
+                android:id="@+id/objectId"
+                android:layout_width="87dp"
+                android:layout_height="17dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@+id/relativeLayout2"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/txtDatePicker"
+                app:layout_constraintTop_toBottomOf="@+id/txtDatePicker" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

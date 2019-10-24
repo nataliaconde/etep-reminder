@@ -1,10 +1,15 @@
 package com.etep.reminder;
 
+import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
+
 public class ItemReminder {
     private String title;
     private String description;
     private String date;
     private String priority;
+    private String objectId;
+    private int imageView;
 
 
     public String getTitle() {
@@ -37,5 +42,22 @@ public class ItemReminder {
 
     public void setPriority(String priority) {
         this.priority = priority;
+    }
+
+
+    public int getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(int imageView) {
+        this.imageView = imageView;
+    }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
     }
 }

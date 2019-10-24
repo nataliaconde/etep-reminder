@@ -1,5 +1,6 @@
 <resources>
     <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+    <string name="back4app_webhosting">https://etep-reminder.back4app.io/</string>
 
     <!-- Change the following strings as required -->
     <string name="back4app_app_id">rfJYNftlm2x4s4ihdMUTSM5RGni8jTAuHQHyOlEW</string>
@@ -17,6 +18,9 @@
     <string name="btnLogin">Acessar</string>
     <string name="errorLoginSignUpEmpty">Preencha corretamente os campos!</string>
     <string name="errorLoginDontMatch">Usuário/Senha não correspondem!</string>
+    <string name="errorLoginEmailVerified">Verifique seu e-mail primeiro!</string>
+    <string name="errorSignUpLength">Digite no mínimo 3 caracteres!</string>
+    <string name="errorSignUpEmailFormat">Insira um e-mail válido!</string>
 
     <string name="logoutTitle">Você tem certeza?</string>
     <string name="logoutMessage">Você será desconectado dessa conta.</string>
@@ -29,6 +33,8 @@
     <string name="SignUpEmail">E-mail</string>
     <string name="SignUpPassword">Senha</string>
     <string name="btnSignUp">Criar</string>
+    <string name="SignUpTitle">Falta pouco para ativar sua conta...</string>
+    <string name="SignUpEmailVerificationSent">As instruções foram enviadas para sua caixa de entrada!</string>
 
     <string name="forgotPassword">Esqueceu a senha?</string>
     <string name="instructionsForgotPassword">Insira seu e-mail no campo abaixo para que as instruções sejam enviadas.</string>
@@ -37,6 +43,23 @@
     <string name="ForgotPasswordEmailVerificationButton">Voltar</string>
     <string name="ForgotPasswordEmailVerificationSent">As instruções foram enviadas para sua caixa de entrada!</string>
     <string name="ForgotPasswordEmailVerificationNotSent">E-mail não encontrado!</string>
+
+    <string name="addTaskName">Insira um título!</string>
+    <string name="addTaskDescription">Insira uma descrição!</string>
+    <string name="addTaskDate">Selecione uma data!</string>
+    <string name="addTaskTime">Selecione um horário!</string>
+
+    <string name="emailAlreadyExists">E-mail já existente!</string>
+    <string name="UsernameTaken">Usuário já existente!</string>
+    <string name="errorNotKnown">Verifique seus dados ou tente novamente!</string>
+
+    <string name="taskObjectCreated">Novo item adicionado!</string>
+    <string name="taskObjectUpdated">Item atualizado!</string>
+    <string name="taskObjectNotCreated">Verifique os dados e tente novamente!</string>
+    <string name="itemObjectDeleted">O item foi deletado!</string>
+    <string name="itemObjectNotDeleted">O objeto não foi encontrado!</string>
+    <string name="titleAlert">Escolha uma ação para esse item.</string>
+    <string name="actionAlert">Selecione uma das opções...</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -1,6 +1,7 @@
 package com.etep.reminder;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.InflateException;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class ListTodayActivity  extends AppCompatActivity {
 
@@ -22,13 +24,13 @@ public class ListTodayActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.today_tasks_tab);
 
-        Log.d("DEBUG", "AAAA");
+        final ListView listViewToday = (ListView) findViewById(R.id.viewPager);
+        update(listViewToday);
+    }
 
-        ListView listViewToday = (ListView) findViewById(R.id.viewPager);
-
+    public void update(ListView listViewToday) {
         CustomAdapter cusadp = new CustomAdapter();
         listViewToday.setAdapter(cusadp);
-
     }
 
     class CustomAdapter extends BaseAdapter{

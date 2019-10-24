@@ -6,15 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class CustomAdapterToday extends BaseAdapter {
+public class CustomAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<ItemReminder> list;
 
-    public CustomAdapterToday(Context context, ArrayList<ItemReminder> list){
+    public CustomAdapter(Context context, ArrayList<ItemReminder> list){
         this.context = context;
         this.list = list;
     }
@@ -43,9 +44,13 @@ public class CustomAdapterToday extends BaseAdapter {
         view = inflater.inflate(R.layout.custom_item_view_layout, null);
 
         TextView title = (TextView) view.findViewById(R.id.txtTitle);
+        TextView objectId = (TextView) view.findViewById(R.id.txtObjectId);
         TextView description = (TextView) view.findViewById(R.id.txtDescription);
+        ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
         title.setText(itemReminder.getTitle());
         description.setText(itemReminder.getDescription());
+        imageView.setImageResource(itemReminder.getImageView());
+        objectId.setText(itemReminder.getObjectId());
 
         return view;
     }

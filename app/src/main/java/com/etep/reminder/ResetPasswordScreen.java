@@ -30,11 +30,11 @@ public class ResetPasswordScreen extends AppCompatActivity {
                 if (!exists) {
                     ParseUser.requestPasswordResetInBackground(etLogin.getText().toString(), new RequestPasswordResetCallback() {
                         public void done(ParseException e) {
-                             if (e == null) {
-                                 goToActivity(SendEmailConfirmation.class, getString(R.string.ForgotPasswordTitle), getString(R.string.ForgotPasswordEmailVerificationSent));
-                             } else {
-                                 Toast.makeText(ResetPasswordScreen.this, getString(R.string.ForgotPasswordEmailVerificationNotSent), Toast.LENGTH_LONG).show();
-                             }
+                         if (e == null) {
+                             goToActivity(SendEmailConfirmation.class, getString(R.string.ForgotPasswordTitle), getString(R.string.ForgotPasswordEmailVerificationSent));
+                         } else {
+                             Toast.makeText(ResetPasswordScreen.this, getString(R.string.ForgotPasswordEmailVerificationNotSent), Toast.LENGTH_LONG).show();
+                         }
                         }
                     });
 

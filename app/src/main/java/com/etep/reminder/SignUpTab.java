@@ -2,10 +2,12 @@ package com.etep.reminder;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -16,6 +18,9 @@ import androidx.fragment.app.Fragment;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SignUpTab extends Fragment {
     @Nullable
@@ -33,24 +38,38 @@ public class SignUpTab extends Fragment {
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
                 boolean exists = checkIfEmpty(etUsername, etEmail, etPassword);
-
                 if(!exists) {
-                    ParseUser user = new ParseUser();
-                    // Set the user's username and password, which can be obtained by a forms
-                    user.setUsername(username);
-                    user.setPassword(password);
-                    user.setEmail(email);
-                    user.signUpInBackground(new SignUpCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            if (e == null) {
-                                goToActivity(SendEmailConfirmation.class);
-                            } else {
-                                ParseUser.logOut();
-                                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-                            }
+                    boolean length = checkLength(etUsername, etEmail, etPassword);
+                    if(!length) {
+                        boolean checkEmail = checkEmailCorrect(etEmail.getText().toString());
+                        if (!checkEmail) {
+                            ParseUser user = new ParseUser();
+                            // Set the user's username and password, which can be obtained by a forms
+                            user.setUsername(username);
+                            user.setPassword(password);
+                            user.setEmail(email);
+                            user.signUpInBackground(new SignUpCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if (e == null) {
+                                        ParseUser.logOut();
+                                        goToActivity(SendEmailConfirmation.class, getString(R.string.SignUpTitle), getString(R.string.SignUpEmailVerificationSent));
+                                    }
+                                    else{
+                                        ParseUser.logOut();
+                                        if(e.getCode() == 202){
+                                            Toast.makeText(getActivity(), getString(R.string.UsernameTaken), Toast.LENGTH_LONG).show();
+                                        } else if(e.getCode() == 203){
+                                            ParseUser.logOut();
+                                            Toast.makeText(getActivity(), getString(R.string.emailAlreadyExists), Toast.LENGTH_LONG).show();
+                                        } else {
+                                            Toast.makeText(getActivity(), getString(R.string.errorNotKnown), Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                }
+                            });
                         }
-                    });
+                    }
                 }
             }
         });
@@ -59,19 +78,42 @@ public class SignUpTab extends Fragment {
     }
 
 
-    public void goToActivity(Class<?> view) {
+    public void goToActivity(Class<?> view, String title, String description) {
         Intent i = new Intent(getActivity(), view);
+        i.putExtra("title", title);
+        i.putExtra("description", description);
         startActivity(i);
+    }
+
+    public boolean checkLength(EditText etLogin,EditText etEmail, EditText etPassword){
+        if((etLogin.getText().length() < 3) || (etEmail.getText().length() < 3) || (etPassword.getText().length() < 3)) {
+            Toast.makeText(getActivity(), getString(R.string.errorSignUpLength), Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
     }
 
     public boolean checkIfEmpty(EditText etLogin,EditText etEmail, EditText etPassword){
         if(etLogin.getText().toString().isEmpty() || etEmail.getText().toString().isEmpty() || etPassword.getText().toString().isEmpty()){
             Toast.makeText(getActivity(), getString(R.string.errorLoginSignUpEmpty), Toast.LENGTH_SHORT).show();
             return true;
-        } else {
+        } else{
             return false;
         }
 
+    }
+
+    boolean checkEmailCorrect(String Email) {
+        String pttn = "^\\D.+@.+\\.[a-z]+";
+        Pattern p = Pattern.compile(pttn);
+        Matcher m = p.matcher(Email);
+
+        if (m.matches()) {
+            return false;
+        } else {
+            Toast.makeText(getActivity(), getString(R.string.errorSignUpEmailFormat), Toast.LENGTH_SHORT).show();
+            return true;
+        }
     }
 
 }

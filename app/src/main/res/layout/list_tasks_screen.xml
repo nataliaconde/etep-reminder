@@ -9,14 +9,14 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="fill_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabIndicatorColor="@color/colorPrimaryDark"
+        app:tabIndicatorColor="@color/colorBlack"
         app:tabPaddingEnd="20dp"
-        app:tabTextColor="@color/cardview_light_background">
+        app:tabTextColor="@color/colorBlack">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
         android:id="@+id/viewPager"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
