@@ -71,6 +71,7 @@ public class TomorrowTab extends Fragment {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Reminder");
         query.whereEqualTo("user", ParseUser.getCurrentUser());
         query.whereEqualTo("status", "tomorrow");
+        query.orderByAscending("datetime");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> List, ParseException e) {
 
@@ -81,6 +82,7 @@ public class TomorrowTab extends Fragment {
                         itemReminder.setTitle(object.getString("title"));
                         itemReminder.setDescription(object.getString("description"));
                         itemReminder.setDate(object.getString("date"));
+                        itemReminder.setTime(object.getString("time"));
                         itemReminder.setPriority(object.getString("priority"));
                         itemReminder.setObjectId(object.getObjectId());
                         int resourceId;

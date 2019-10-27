@@ -26,7 +26,7 @@ public class LogInScreen extends AppCompatActivity {
         btnHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri uri = Uri.parse(getString(R.string.back4app_webhosting) + "about-us"); // missing 'http://' will cause crashed
+                Uri uri = Uri.parse(getString(R.string.back4app_webhosting) + "#contact"); // missing 'http://' will cause crashed
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }

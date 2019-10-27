@@ -72,16 +72,17 @@ public class NextDaysTab extends Fragment {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Reminder");
         query.whereEqualTo("user", ParseUser.getCurrentUser());
         query.whereEqualTo("status", "nextdays");
+        query.orderByAscending("datetime");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> List, ParseException e) {
 
                 if (e == null) {
                     for (ParseObject object : List) {
-
                         ItemReminder itemReminder = new ItemReminder();
-                        itemReminder.setTitle(object.getString("title"));
-                        itemReminder.setDescription(object.getString("description"));
+                        itemReminder.setTitle(formatTextWithDots("title", object.getString("title")));
+                        itemReminder.setDescription(formatTextWithDots("description", object.getString("description")));
                         itemReminder.setDate(object.getString("date"));
+                        itemReminder.setTime(object.getString("time"));
                         itemReminder.setPriority(object.getString("priority"));
                         itemReminder.setObjectId(object.getObjectId());
                         int resourceId;
@@ -195,5 +196,18 @@ public class NextDaysTab extends Fragment {
             }
         });
         return message[0];
+    }
+
+    public String formatTextWithDots(String type, String data){
+        String text = "";
+        if (type.equals("title") && data.length() >= 30 ) {
+            text = data.substring(0, 30)+ "...";
+        } else if (type.equals("description") && data.length() >= 42 ){
+            text = data.substring(0, 42)+ "...";
+        } else {
+            text = data;
+        }
+        Log.d("formatText", text);
+        return (text);
     }
 }

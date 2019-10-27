@@ -39,7 +39,7 @@ import java.util.Map;
 
 import bolts.Bolts;
 
-public class AddTasks extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class AddTasks extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,6 @@ public class AddTasks extends AppCompatActivity implements AdapterView.OnItemSel
 
         Spinner priority = (Spinner) findViewById(R.id.spinnerPriority);
         ImageButton ImageButton = (ImageButton) findViewById(R.id.btnDatePicker);
-        ImageButton btnTimePicker = (ImageButton) findViewById(R.id.btnTimePicker);
 
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser == null) {
@@ -76,23 +75,11 @@ public class AddTasks extends AppCompatActivity implements AdapterView.OnItemSel
                     String year = date.substring(0,4);
                     String month = date.substring(5,7);
                     String day = date.substring(8,10);
-                    datePickerUpdate(txtDate, day, month, year);
+                    datePickerUpdate(day, month, year);
                 } else {
-                    datePicker(txtDate);
+                    datePicker();
                 }
 
-            }
-        });
-
-        btnTimePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(bundle != null && bundle.size() >= 1) {
-                    String time = bundle.getString("time");
-                    timePickerUpdate(timePickerTxt, time);
-                } else {
-                    timePicker(timePickerTxt);
-                }
             }
         });
     }
@@ -222,34 +209,32 @@ public class AddTasks extends AppCompatActivity implements AdapterView.OnItemSel
         Intent i = new Intent(AddTasks.this, view);
         startActivity(i);
     }
-    public void datePickerUpdate(final TextView txtDate, String dayD, String monthD, final String yearD) {
+    public void datePickerUpdate(String dayD, String monthD, final String yearD) {
         int year = Integer.valueOf(yearD);
         int month = Integer.valueOf(monthD);
         int day = Integer.valueOf(dayD);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(AddTasks.this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        txtDate.setText(year + "-" + (month + 1) + "-" + day);
-                    }
-                }, year, month, day);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                AddTasks.this,
+                AddTasks.this,
+                year,
+                month-1,
+                day);
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
         datePickerDialog.show();
 
     }
-    public void datePicker(final TextView txtDate){
+    public void datePicker(){
         Calendar calendar = Calendar.getInstance();
         int year = Integer.valueOf(calendar.get(Calendar.YEAR));
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-        DatePickerDialog datePickerDialog = new DatePickerDialog(AddTasks.this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        txtDate.setText(year + "-" + (month + 1) + "-" + day);
-                    }
-                }, year, month, dayOfMonth);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                AddTasks.this,
+                AddTasks.this,
+                year,
+                month,
+                dayOfMonth);
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
         datePickerDialog.show();
     }
@@ -319,5 +304,22 @@ public class AddTasks extends AppCompatActivity implements AdapterView.OnItemSel
             priority.setOnItemSelectedListener(this);
             Log.d("spinner", "aqui 2");
         }
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+        month = month +1;
+        final TextView txtDate = (TextView) findViewById(R.id.txtDatePicker);
+        txtDate.setText(year + "-" + (month) + "-" + day);
+        final TextView txtTimePicker = (TextView) findViewById(R.id.txtTimePicker);
+
+        final Bundle bundle = getIntent().getExtras();
+        if(bundle != null && bundle.size() >= 1) {
+            String time = bundle.getString("time");
+            timePickerUpdate(txtTimePicker, time);
+        } else {
+            timePicker(txtTimePicker);
+        }
+
     }
 }

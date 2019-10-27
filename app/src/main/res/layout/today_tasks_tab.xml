@@ -29,19 +29,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-
             </ListView>
-
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
     </ScrollView>
-
-
-
-
     <TextView
         android:id="@+id/empty"
-        android:text="Empty"
+        android:text="Sem resultados"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="center"

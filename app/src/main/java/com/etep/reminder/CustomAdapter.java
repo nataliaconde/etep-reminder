@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class CustomAdapter extends BaseAdapter {
@@ -46,11 +48,15 @@ public class CustomAdapter extends BaseAdapter {
         TextView title = (TextView) view.findViewById(R.id.txtTitle);
         TextView objectId = (TextView) view.findViewById(R.id.txtObjectId);
         TextView description = (TextView) view.findViewById(R.id.txtDescription);
+        TextView date = (TextView)  view.findViewById(R.id.txtDate);
+        TextView time = (TextView)  view.findViewById(R.id.txtTime);
         ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
         title.setText(itemReminder.getTitle());
         description.setText(itemReminder.getDescription());
         imageView.setImageResource(itemReminder.getImageView());
         objectId.setText(itemReminder.getObjectId());
+        date.setText(itemReminder.getDate());
+        time.setText(itemReminder.getTime());
 
         return view;
     }

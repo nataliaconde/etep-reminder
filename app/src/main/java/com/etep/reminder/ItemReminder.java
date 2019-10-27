@@ -9,6 +9,7 @@ public class ItemReminder {
     private String date;
     private String priority;
     private String objectId;
+    private String time;
     private int imageView;
 
 
@@ -34,6 +35,14 @@ public class ItemReminder {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getTime() {
+        time = time.replace(":000", "");
+        return time;
+    }
+
+    public void setTime(String time) { this.time = time;
     }
 
     public String getPriority() {
