@@ -3,6 +3,7 @@ package com.etep.reminder;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,10 +31,10 @@ public class LoginTab extends Fragment {
         if (currentUser != null) {
             goToActivity(ListTasksScreen.class);
         }
-
-        Button btnLogin = (Button) view.findViewById(R.id.btnLogin);
+        final long TIME = 1 * 1000;
+        final Button btnLogin = (Button) view.findViewById(R.id.btnLogin);
         final Button signUp = (Button) view.findViewById(R.id.btnSignUp);
-        Button btnResetPassword = (Button) view.findViewById(R.id.idResetPassword);
+        final Button btnResetPassword = (Button) view.findViewById(R.id.idResetPassword);
 
         final EditText etLogin = (EditText) view.findViewById(R.id.etUsername);
         final EditText etPassword = (EditText) view.findViewById(R.id.etPassword);
@@ -42,6 +43,15 @@ public class LoginTab extends Fragment {
             @Override
             public void onClick(View view) {
                 boolean exists = checkIfEmpty(etLogin, etPassword);
+                btnLogin.setEnabled(false);
+
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        btnLogin.setEnabled(true);
+                    }
+                }, TIME);
 
                 if(!exists) {
                     ParseUser.logInInBackground(String.valueOf(etLogin.getText()), String.valueOf(etPassword.getText()), new LogInCallback() {
@@ -68,6 +78,15 @@ public class LoginTab extends Fragment {
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                btnResetPassword.setEnabled(false);
+
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        btnResetPassword.setEnabled(true);
+                    }
+                }, TIME);
                 goToActivity(ResetPasswordScreen.class);
             }
         });
