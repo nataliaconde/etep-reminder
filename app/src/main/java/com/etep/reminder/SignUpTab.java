@@ -1,6 +1,7 @@
 package com.etep.reminder;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +35,8 @@ public class SignUpTab extends Fragment {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                btnSignUp.setBackgroundColor(Color.GRAY);
+                btnSignUp.setEnabled(true);
                 String username = etUsername.getText().toString();
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
@@ -54,22 +57,36 @@ public class SignUpTab extends Fragment {
                                     if (e == null) {
                                         ParseUser.logOut();
                                         goToActivity(SendEmailConfirmation.class, getString(R.string.SignUpTitle), getString(R.string.SignUpEmailVerificationSent));
+                                        btnSignUp.setBackgroundColor(Color.BLACK);
+                                        btnSignUp.setEnabled(false);
                                     }
                                     else{
                                         ParseUser.logOut();
                                         if(e.getCode() == 202){
                                             Toast.makeText(getActivity(), getString(R.string.UsernameTaken), Toast.LENGTH_LONG).show();
+                                            btnSignUp.setBackgroundColor(Color.BLACK);
+                                            btnSignUp.setEnabled(false);
                                         } else if(e.getCode() == 203){
                                             ParseUser.logOut();
                                             Toast.makeText(getActivity(), getString(R.string.emailAlreadyExists), Toast.LENGTH_LONG).show();
+                                            btnSignUp.setBackgroundColor(Color.BLACK);
+                                            btnSignUp.setEnabled(false);
                                         } else {
                                             Toast.makeText(getActivity(), getString(R.string.errorNotKnown), Toast.LENGTH_LONG).show();
+                                            btnSignUp.setBackgroundColor(Color.BLACK);
+                                            btnSignUp.setEnabled(false);
                                         }
                                     }
                                 }
                             });
                         }
+                    } else {
+                        btnSignUp.setBackgroundColor(Color.BLACK);
+                        btnSignUp.setEnabled(false);
                     }
+                } else {
+                    btnSignUp.setBackgroundColor(Color.BLACK);
+                    btnSignUp.setEnabled(false);
                 }
             }
         });

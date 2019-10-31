@@ -57,7 +57,7 @@ public class NextDaysTab extends Fragment {
             }
         });
 
-        getAllContent(listViewNextDays, items);
+       getAllContent(listViewNextDays, items);
         return view;
     }
 

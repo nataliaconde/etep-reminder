@@ -1,6 +1,7 @@
 package com.etep.reminder;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +20,8 @@ import androidx.fragment.app.Fragment;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 public class LoginTab extends Fragment {
@@ -33,7 +36,6 @@ public class LoginTab extends Fragment {
         }
         final long TIME = 1 * 1000;
         final Button btnLogin = (Button) view.findViewById(R.id.btnLogin);
-        final Button signUp = (Button) view.findViewById(R.id.btnSignUp);
         final Button btnResetPassword = (Button) view.findViewById(R.id.idResetPassword);
 
         final EditText etLogin = (EditText) view.findViewById(R.id.etUsername);
@@ -43,15 +45,8 @@ public class LoginTab extends Fragment {
             @Override
             public void onClick(View view) {
                 boolean exists = checkIfEmpty(etLogin, etPassword);
+                btnLogin.setBackgroundColor(Color.GRAY);
                 btnLogin.setEnabled(false);
-
-                new Handler().postDelayed(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        btnLogin.setEnabled(true);
-                    }
-                }, TIME);
 
                 if(!exists) {
                     ParseUser.logInInBackground(String.valueOf(etLogin.getText()), String.valueOf(etPassword.getText()), new LogInCallback() {
@@ -61,16 +56,29 @@ public class LoginTab extends Fragment {
                                 boolean isEmailVefified = parseUser.getBoolean("emailVerified");
                                 if (isEmailVefified) {
                                     goToActivity(ListTasksScreen.class);
+                                    btnLogin.setBackgroundColor(Color.BLACK);
+                                    btnLogin.setEnabled(true);
+                                    // Store app language and version
+                                    ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+                                    installation.put("userId", ParseObject.createWithoutData("_User", ParseUser.getCurrentUser().getObjectId()));
+                                    installation.saveInBackground();
                                 } else {
                                     Toast.makeText(getActivity(), getString(R.string.errorLoginEmailVerified), Toast.LENGTH_SHORT).show();
+                                    btnLogin.setBackgroundColor(Color.BLACK);
+                                    btnLogin.setEnabled(true);
                                 }
                             }
                             else {
                                 ParseUser.logOut();
                                 Toast.makeText(getActivity(), getString(R.string.errorLoginDontMatch), Toast.LENGTH_SHORT).show();
+                                btnLogin.setBackgroundColor(Color.BLACK);
+                                btnLogin.setEnabled(true);
                             }
                         }
                     });
+                } else {
+                    btnLogin.setBackgroundColor(Color.BLACK);
+                    btnLogin.setEnabled(true);
                 }
             }
         });
@@ -79,11 +87,13 @@ public class LoginTab extends Fragment {
             @Override
             public void onClick(View view) {
                 btnResetPassword.setEnabled(false);
+                btnLogin.setBackgroundColor(Color.GRAY);
 
                 new Handler().postDelayed(new Runnable() {
 
                     @Override
                     public void run() {
+                        btnLogin.setBackgroundColor(Color.BLACK);
                         btnResetPassword.setEnabled(true);
                     }
                 }, TIME);
@@ -106,7 +116,5 @@ public class LoginTab extends Fragment {
         } else {
             return false;
         }
-
     }
-
 }

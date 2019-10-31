@@ -3,6 +3,7 @@ package com.etep.reminder;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,12 +29,16 @@ public class SendEmailConfirmation extends AppCompatActivity {
         title.setText(titleString);
         description.setText(titleDescription);
 
-        Button btnSendForgotPasswordEmail = (Button) findViewById(R.id.btnSendForgotPasswordEmail);
+        final Button btnSendForgotPasswordEmail = (Button) findViewById(R.id.btnSendForgotPasswordEmail);
         btnSendForgotPasswordEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                btnSendForgotPasswordEmail.setBackgroundColor(Color.GRAY);
+                btnSendForgotPasswordEmail.setEnabled(false);
                 ParseUser.logOut();
                 goToActivity(LogInScreen.class);
+                btnSendForgotPasswordEmail.setBackgroundColor(Color.BLACK);
+                btnSendForgotPasswordEmail.setEnabled(true);
             }
         });
     }

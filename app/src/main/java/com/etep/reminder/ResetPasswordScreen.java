@@ -3,6 +3,7 @@ package com.etep.reminder;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,20 +21,26 @@ public class ResetPasswordScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password_screen);
 
-        Button btnResetPassword = (Button) findViewById(R.id.btnSendForgotPasswordEmail);
+        final Button btnResetPassword = (Button) findViewById(R.id.btnSendForgotPasswordEmail);
         final EditText etLogin = (EditText) findViewById(R.id.edtEmail);
 
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                btnResetPassword.setBackgroundColor(Color.GRAY);
+                btnResetPassword.setEnabled(false);
                 boolean exists = checkIfEmpty(etLogin);
                 if (!exists) {
                     ParseUser.requestPasswordResetInBackground(etLogin.getText().toString(), new RequestPasswordResetCallback() {
                         public void done(ParseException e) {
                          if (e == null) {
                              goToActivity(SendEmailConfirmation.class, getString(R.string.ForgotPasswordTitle), getString(R.string.ForgotPasswordEmailVerificationSent));
+                             btnResetPassword.setBackgroundColor(Color.BLACK);
+                             btnResetPassword.setEnabled(true);
                          } else {
                              Toast.makeText(ResetPasswordScreen.this, getString(R.string.ForgotPasswordEmailVerificationNotSent), Toast.LENGTH_LONG).show();
+                             btnResetPassword.setBackgroundColor(Color.BLACK);
+                             btnResetPassword.setEnabled(true);
                          }
                         }
                     });

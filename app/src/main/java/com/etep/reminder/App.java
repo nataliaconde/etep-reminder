@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.parse.Parse;
 import com.parse.ParseInstallation;
+import com.parse.ParseUser;
+import com.parse.livequery.ParseLiveQueryClient;
 
 public class App extends Application {
     @Override
@@ -18,7 +20,13 @@ public class App extends Application {
         );
         ParseInstallation installation = ParseInstallation.getCurrentInstallation();
         installation.put("GCMSenderId", getString(R.string.gcmSenderId));
+        ParseUser user = ParseUser.getCurrentUser();
+        if(user != null){
+            installation.put("userId", user.getObjectId());
+        }
         installation.saveInBackground();
+
+
     }
 
 
