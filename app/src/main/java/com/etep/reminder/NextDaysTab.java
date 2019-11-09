@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,8 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.livequery.ParseLiveQueryClient;
+import com.parse.livequery.SubscriptionHandling;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +59,12 @@ public class NextDaysTab extends Fragment {
                 }, 2000);
             }
         });
+        SharedConnection parseL = new SharedConnection();
+        ParseLiveQueryClient parseLiveQueryClient = parseL.get();
+
+        objectCreated(parseLiveQueryClient, listViewNextDays, items);
+        objectUpdated(parseLiveQueryClient, listViewNextDays, items);
+        objectDeleted(parseLiveQueryClient, listViewNextDays, items);
 
        getAllContent(listViewNextDays, items);
         return view;
@@ -209,5 +218,65 @@ public class NextDaysTab extends Fragment {
         }
         Log.d("formatText", text);
         return (text);
+    }
+
+    public void objectUpdated(ParseLiveQueryClient parseLiveQueryClient, final ListView listViewToday, final ArrayList items){
+        if (parseLiveQueryClient != null) {
+            ParseQuery<ParseObject> parseQuery = new ParseQuery("Reminder");
+            parseQuery.whereEqualTo("user", ParseUser.getCurrentUser());
+            SubscriptionHandling<ParseObject> subscriptionHandling = parseLiveQueryClient.subscribe(parseQuery);
+
+            subscriptionHandling.handleEvent(SubscriptionHandling.Event.UPDATE, new SubscriptionHandling.HandleEventCallback<ParseObject>() {
+                @Override
+                public void onEvent(ParseQuery<ParseObject> query, final ParseObject object) {
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        public void run() {
+                            getAllContent(listViewToday, items);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    public void objectDeleted(ParseLiveQueryClient parseLiveQueryClient, final ListView listViewToday, final ArrayList items) {
+        if (parseLiveQueryClient != null) {
+            ParseQuery<ParseObject> parseQuery = new ParseQuery("Reminder");
+            parseQuery.whereEqualTo("user", ParseUser.getCurrentUser());
+            SubscriptionHandling<ParseObject> subscriptionHandling = parseLiveQueryClient.subscribe(parseQuery);
+
+            subscriptionHandling.handleEvent(SubscriptionHandling.Event.DELETE, new SubscriptionHandling.HandleEventCallback<ParseObject>() {
+                @Override
+                public void onEvent(ParseQuery<ParseObject> query, final ParseObject object) {
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        public void run() {
+                            getAllContent(listViewToday, items);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    public void objectCreated(ParseLiveQueryClient parseLiveQueryClient, final ListView listViewToday, final ArrayList items) {
+        if (parseLiveQueryClient != null) {
+            ParseQuery<ParseObject> parseQuery = new ParseQuery("Reminder");
+            parseQuery.whereEqualTo("user", ParseUser.getCurrentUser());
+            SubscriptionHandling<ParseObject> subscriptionHandling = parseLiveQueryClient.subscribe(parseQuery);
+
+            subscriptionHandling.handleEvent(SubscriptionHandling.Event.CREATE, new SubscriptionHandling.HandleEventCallback<ParseObject>() {
+                @Override
+                public void onEvent(ParseQuery<ParseObject> query, final ParseObject object) {
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        public void run() {
+                            getAllContent(listViewToday, items);
+                        }
+                    });
+                }
+            });
+        }
     }
 }

@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -72,9 +73,11 @@ public class AddTasks extends AppCompatActivity implements AdapterView.OnItemSel
             public void onClick(View view) {
                 if(bundle != null && bundle.size() >= 1){
                     String date = bundle.getString("date");
-                    String year = date.substring(0,4);
-                    String month = date.substring(5,7);
-                    String day = date.substring(8,10);
+                    String[] array = date.split("-");
+                    String year = array[0];
+                    String month = array[1];
+                    String day = array[2];
+                    Log.d("update", array[0] + " " + array[1] + " " + array[2]);
                     datePickerUpdate(day, month, year);
                 } else {
                     datePicker();
@@ -92,7 +95,7 @@ public class AddTasks extends AppCompatActivity implements AdapterView.OnItemSel
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(final MenuItem item){
         final TextView txtDate = (TextView) findViewById(R.id.txtDatePicker);
         final TextView timePickerTxt = (TextView) findViewById(R.id.txtTimePicker);
         final EditText edtName = (EditText) findViewById(R.id.edtName);
@@ -102,6 +105,9 @@ public class AddTasks extends AppCompatActivity implements AdapterView.OnItemSel
         String[] optionsPriority = {"low", "medium", "high"};
 
         if(item.getItemId()==R.id.createNewTask){
+            item.setVisible(false);
+            item.setEnabled(false);
+
             if(checkIfExists(edtName, edtDescription, txtDate, timePickerTxt)) {
                 String edtNameField = edtName.getText().toString();
                 String txtObjectId = objectId.getText().toString();
@@ -130,12 +136,16 @@ public class AddTasks extends AppCompatActivity implements AdapterView.OnItemSel
                                         new android.os.Handler().postDelayed(
                                                 new Runnable() {
                                                     public void run() {
+                                                        item.setVisible(false);
+                                                        item.setEnabled(true);
                                                         goToActivity(ListTasksScreen.class);
                                                     }
                                                 }, Toast.LENGTH_SHORT);
 
                                     } else {
                                         // Something went wrong
+                                        item.setVisible(false);
+                                        item.setEnabled(true);
                                         Toast.makeText(AddTasks.this, getString(R.string.taskObjectNotCreated), Toast.LENGTH_SHORT).show();
                                     }
                                 }
@@ -151,21 +161,26 @@ public class AddTasks extends AppCompatActivity implements AdapterView.OnItemSel
                                         new android.os.Handler().postDelayed(
                                                 new Runnable() {
                                                     public void run() {
+                                                        item.setVisible(true);
+                                                        item.setEnabled(true);
                                                         goToActivity(ListTasksScreen.class);
                                                     }
                                                 }, Toast.LENGTH_SHORT);
 
                                     } else {
                                         // Something went wrong
+                                        item.setVisible(true);
+                                        item.setEnabled(true);
                                         Toast.makeText(AddTasks.this, getString(R.string.taskObjectNotCreated), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
+                    item.setVisible(true);
+                    item.setEnabled(true);
                 }
-
-
-
-
+            } else {
+                item.setVisible(true);
+                item.setEnabled(true);
             }
         }
         return super.onOptionsItemSelected(item);
@@ -222,8 +237,8 @@ public class AddTasks extends AppCompatActivity implements AdapterView.OnItemSel
                 day);
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
         datePickerDialog.show();
-
     }
+
     public void datePicker(){
         Calendar calendar = Calendar.getInstance();
         int year = Integer.valueOf(calendar.get(Calendar.YEAR));

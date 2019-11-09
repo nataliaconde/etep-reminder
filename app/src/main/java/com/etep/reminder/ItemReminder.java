@@ -38,7 +38,7 @@ public class ItemReminder {
     }
 
     public String getTime() {
-        time = time.replace(":000", "");
+        time = time.substring(0, time.length() - 4);
         return time;
     }
 

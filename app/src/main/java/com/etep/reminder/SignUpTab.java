@@ -36,7 +36,7 @@ public class SignUpTab extends Fragment {
             @Override
             public void onClick(View view) {
                 btnSignUp.setBackgroundColor(Color.GRAY);
-                btnSignUp.setEnabled(true);
+                btnSignUp.setEnabled(false);
                 String username = etUsername.getText().toString();
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
@@ -55,38 +55,40 @@ public class SignUpTab extends Fragment {
                                 @Override
                                 public void done(ParseException e) {
                                     if (e == null) {
+                                        btnSignUp.setBackgroundColor(Color.BLACK);
+                                        btnSignUp.setEnabled(true);
                                         ParseUser.logOut();
                                         goToActivity(SendEmailConfirmation.class, getString(R.string.SignUpTitle), getString(R.string.SignUpEmailVerificationSent));
-                                        btnSignUp.setBackgroundColor(Color.BLACK);
-                                        btnSignUp.setEnabled(false);
-                                    }
-                                    else{
+                                    } else {
                                         ParseUser.logOut();
                                         if(e.getCode() == 202){
-                                            Toast.makeText(getActivity(), getString(R.string.UsernameTaken), Toast.LENGTH_LONG).show();
                                             btnSignUp.setBackgroundColor(Color.BLACK);
-                                            btnSignUp.setEnabled(false);
+                                            btnSignUp.setEnabled(true);
+                                            Toast.makeText(getActivity(), getString(R.string.UsernameTaken), Toast.LENGTH_LONG).show();
                                         } else if(e.getCode() == 203){
+                                            btnSignUp.setBackgroundColor(Color.BLACK);
+                                            btnSignUp.setEnabled(true);
                                             ParseUser.logOut();
                                             Toast.makeText(getActivity(), getString(R.string.emailAlreadyExists), Toast.LENGTH_LONG).show();
-                                            btnSignUp.setBackgroundColor(Color.BLACK);
-                                            btnSignUp.setEnabled(false);
                                         } else {
-                                            Toast.makeText(getActivity(), getString(R.string.errorNotKnown), Toast.LENGTH_LONG).show();
                                             btnSignUp.setBackgroundColor(Color.BLACK);
-                                            btnSignUp.setEnabled(false);
+                                            btnSignUp.setEnabled(true);
+                                            Toast.makeText(getActivity(), getString(R.string.errorNotKnown), Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 }
                             });
+                        } else {
+                            btnSignUp.setBackgroundColor(Color.BLACK);
+                            btnSignUp.setEnabled(true);
                         }
                     } else {
                         btnSignUp.setBackgroundColor(Color.BLACK);
-                        btnSignUp.setEnabled(false);
+                        btnSignUp.setEnabled(true);
                     }
                 } else {
                     btnSignUp.setBackgroundColor(Color.BLACK);
-                    btnSignUp.setEnabled(false);
+                    btnSignUp.setEnabled(true);
                 }
             }
         });

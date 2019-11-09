@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +26,8 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.livequery.ParseLiveQueryClient;
+import com.parse.livequery.SubscriptionHandling;
 
 
 import java.util.ArrayList;
@@ -55,11 +56,17 @@ public class TodayTab extends Fragment {
                     public void run() {
                         getAllContent(listViewToday, items);
                         mSwipeRefreshLayout.setRefreshing(false);
-                        //Toast.makeText(getContext(), "刷新完成", Toast.LENGTH_SHORT).show();
                     }
                 }, 2000);
             }
         });
+
+        SharedConnection parseL = new SharedConnection();
+        ParseLiveQueryClient parseLiveQueryClient = parseL.get();
+
+        objectCreated(parseLiveQueryClient, listViewToday, items);
+        objectUpdated(parseLiveQueryClient, listViewToday, items);
+        objectDeleted(parseLiveQueryClient, listViewToday, items);
 
         getAllContent(listViewToday, items);
         return view;
@@ -202,6 +209,66 @@ public class TodayTab extends Fragment {
             }
         });
         return message[0];
+    }
+
+    public void objectUpdated(ParseLiveQueryClient parseLiveQueryClient, final ListView listViewToday, final ArrayList items){
+        if (parseLiveQueryClient != null) {
+            ParseQuery<ParseObject> parseQuery = new ParseQuery("Reminder");
+            parseQuery.whereEqualTo("user", ParseUser.getCurrentUser());
+            SubscriptionHandling<ParseObject> subscriptionHandling = parseLiveQueryClient.subscribe(parseQuery);
+
+            subscriptionHandling.handleEvent(SubscriptionHandling.Event.UPDATE, new SubscriptionHandling.HandleEventCallback<ParseObject>() {
+                @Override
+                public void onEvent(ParseQuery<ParseObject> query, final ParseObject object) {
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        public void run() {
+                            getAllContent(listViewToday, items);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    public void objectDeleted(ParseLiveQueryClient parseLiveQueryClient, final ListView listViewToday, final ArrayList items) {
+        if (parseLiveQueryClient != null) {
+            ParseQuery<ParseObject> parseQuery = new ParseQuery("Reminder");
+            parseQuery.whereEqualTo("user", ParseUser.getCurrentUser());
+            SubscriptionHandling<ParseObject> subscriptionHandling = parseLiveQueryClient.subscribe(parseQuery);
+
+            subscriptionHandling.handleEvent(SubscriptionHandling.Event.DELETE, new SubscriptionHandling.HandleEventCallback<ParseObject>() {
+                @Override
+                public void onEvent(ParseQuery<ParseObject> query, final ParseObject object) {
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        public void run() {
+                            getAllContent(listViewToday, items);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    public void objectCreated(ParseLiveQueryClient parseLiveQueryClient, final ListView listViewToday, final ArrayList items) {
+        if (parseLiveQueryClient != null) {
+            ParseQuery<ParseObject> parseQuery = new ParseQuery("Reminder");
+            parseQuery.whereEqualTo("user", ParseUser.getCurrentUser());
+            SubscriptionHandling<ParseObject> subscriptionHandling = parseLiveQueryClient.subscribe(parseQuery);
+
+            subscriptionHandling.handleEvent(SubscriptionHandling.Event.CREATE, new SubscriptionHandling.HandleEventCallback<ParseObject>() {
+                @Override
+                public void onEvent(ParseQuery<ParseObject> query, final ParseObject object) {
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        public void run() {
+                            getAllContent(listViewToday, items);
+                        }
+                    });
+                }
+            });
+        }
     }
 }
 
